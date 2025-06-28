@@ -50,6 +50,7 @@ const AllCategories = () => {
             role="combobox"
             aria-expanded={open}
             className="w-[200px] justify-between cursor-pointer"
+            disabled={loading}
           >
             {value
               ? category.find((category) => category?.slug === value)?.name

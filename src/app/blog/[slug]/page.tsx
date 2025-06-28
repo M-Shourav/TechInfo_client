@@ -35,7 +35,7 @@ const SinglePage = () => {
       }
     };
     singlePost();
-  }, []);
+  }, [params?.slug]);
   return (
     <Container className="py-10">
       <>

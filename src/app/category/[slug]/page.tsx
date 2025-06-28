@@ -6,7 +6,6 @@ import { PostType } from "../../../../types/postType";
 import axios from "axios";
 import { serverUrl } from "../../../../config/config";
 import { Badge } from "@/components/ui/badge";
-import Loading from "@/components/Loading";
 import PostCard from "@/components/PostCard";
 import { Skeleton } from "@/components/ui/skeleton";
 

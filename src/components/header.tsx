@@ -48,7 +48,7 @@ const Header = () => {
       }
     };
     fetchUserData();
-  }, []);
+  }, [router]);
 
   const handleLogout = async () => {
     if (session?.user) {
@@ -127,6 +127,7 @@ const Header = () => {
                   <DropdownMenuItem
                     className="cursor-pointer"
                     onClick={handleLogout}
+                    disabled={loading}
                   >
                     <LogOut />
                     Logout

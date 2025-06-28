@@ -5,7 +5,6 @@ import { AiOutlineEye, AiOutlineEyeInvisible } from "react-icons/ai";
 import { useState } from "react";
 import toast from "react-hot-toast";
 import axios from "axios";
-import { useRouter } from "next/navigation";
 import { serverUrl } from "../../config/config";
 import { setCookie } from "cookies-next";
 import { Loader2 } from "lucide-react";
@@ -17,8 +16,6 @@ const LoginForm = () => {
   const [password, setPassword] = useState("");
   const [remember, setRemember] = useState(false);
   const [loading, setLoading] = useState(false);
-  const router = useRouter();
-
   const handleLogin = async (e: React.FormEvent) => {
     e.preventDefault();
     try {
