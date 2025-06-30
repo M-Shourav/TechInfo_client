@@ -1,6 +1,6 @@
 "use client";
 import React, { useEffect, useState } from "react";
-import axios from "../../../utils/axiosInstance";
+import axios from "axios";
 import { PostType } from "../../../types/postType";
 import {
   Card,
@@ -22,7 +22,9 @@ const PostBanner = () => {
     const getPostList = async () => {
       try {
         setLoading(true);
-        const res = await axios.get("/api/post/posts");
+        const res = await axios.get(
+          `${process.env.NEXT_PUBLIC_API_URL}/api/post/posts`
+        );
         const data = res?.data;
         setPostList(data?.post);
       } catch (error) {
