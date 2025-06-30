@@ -1,8 +1,7 @@
 "use client";
 import { useEffect, useState } from "react";
 import Container from "../container";
-import axios from "axios";
-import { serverUrl } from "../../../config/config";
+import axios from "../../../utils/axiosInstance";
 import { Popover, PopoverContent, PopoverTrigger } from "../ui/popover";
 import { Button } from "../ui/button";
 import { ChevronDown } from "lucide-react";
@@ -28,7 +27,7 @@ const AllCategories = () => {
     const getAllCategories = async () => {
       try {
         setLoading(true);
-        const res = await axios.get(`${serverUrl}api/category/getCategories`);
+        const res = await axios.get("/api/category/getCategories");
         const data = res?.data;
         if (data?.success) {
           setCategory(data?.categories);

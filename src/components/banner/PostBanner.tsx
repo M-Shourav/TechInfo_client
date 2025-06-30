@@ -1,7 +1,6 @@
 "use client";
 import React, { useEffect, useState } from "react";
-import axios from "axios";
-import { serverUrl } from "../../../config/config";
+import axios from "../../../utils/axiosInstance";
 import { PostType } from "../../../types/postType";
 import {
   Card,
@@ -23,7 +22,7 @@ const PostBanner = () => {
     const getPostList = async () => {
       try {
         setLoading(true);
-        const res = await axios.get(`${serverUrl}api/post/posts`);
+        const res = await axios.get("/api/post/posts");
         const data = res?.data;
         setPostList(data?.post);
       } catch (error) {
@@ -34,7 +33,6 @@ const PostBanner = () => {
     };
     getPostList();
   }, []);
-
   return (
     <div className="max-w-screen-xl px-8 flex flex-col space-y-5 py-10">
       <div className="w-full flex flex-col items-center justify-center space-y-2">

@@ -1,7 +1,6 @@
 "use client";
-import axios from "axios";
+import axios from "../../../utils/axiosInstance";
 import React, { useEffect, useState } from "react";
-import { serverUrl } from "../../../config/config";
 import { Card, CardDescription, CardHeader, CardTitle } from "../ui/card";
 import Image from "next/image";
 import Link from "next/link";
@@ -12,9 +11,7 @@ const OtherPost = ({ currentSlug }: { currentSlug: string }) => {
   useEffect(() => {
     const fetOtherPost = async () => {
       try {
-        const res = await axios.get(
-          `${serverUrl}api/post/otherPost/${currentSlug}`
-        );
+        const res = await axios.get(`/api/post/otherPost/${currentSlug}`);
         const data = res?.data;
         if (data?.success) {
           setPosts(data?.post);

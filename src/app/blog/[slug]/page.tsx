@@ -1,8 +1,7 @@
 "use client";
 import Container from "@/components/container";
-import axios from "axios";
+import axios from "../../../../utils/axiosInstance";
 import React, { useEffect, useState } from "react";
-import { serverUrl } from "../../../../config/config";
 import { useParams } from "next/navigation";
 import dayjs from "dayjs";
 import { SinglePostType } from "../../../../types/SinglePostType";
@@ -24,9 +23,7 @@ const SinglePage = () => {
     const singlePost = async () => {
       setLoading(true);
       try {
-        const res = await axios.get(
-          `${serverUrl}api/post/singlePost/${params?.slug}`
-        );
+        const res = await axios.get(`/api/post/singlePost/${params?.slug}`);
         setPost(res?.data.singlePost);
       } catch (error) {
         console.log("Single Post error:", error);

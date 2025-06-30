@@ -4,8 +4,7 @@ import { CardContent, CardFooter } from "./ui/card";
 import { AiOutlineEye, AiOutlineEyeInvisible } from "react-icons/ai";
 import { useState } from "react";
 import toast from "react-hot-toast";
-import axios from "axios";
-import { serverUrl } from "../../config/config";
+import axios from "../../utils/axiosInstance";
 import { setCookie } from "cookies-next";
 import { Loader2 } from "lucide-react";
 import { Button } from "./ui/button";
@@ -20,16 +19,10 @@ const LoginForm = () => {
     e.preventDefault();
     try {
       setLoading(true);
-      const response = await axios.post(
-        `${serverUrl}api/user/login`,
-        {
-          email,
-          password,
-        },
-        {
-          withCredentials: true,
-        }
-      );
+      const response = await axios.post(`/api/user/login`, {
+        email,
+        password,
+      });
       const data = response?.data;
       const token = response?.data.token;
       if (data?.success) {

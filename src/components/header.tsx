@@ -1,4 +1,5 @@
 "use client";
+import axios from "../../utils/axiosInstance";
 import Container from "./container";
 import Link from "next/link";
 import { signOut, useSession } from "next-auth/react";
@@ -13,11 +14,10 @@ import {
 } from "./ui/dropdown-menu";
 import { useEffect, useState } from "react";
 import { UserType } from "../../types/userType";
-import axios from "axios";
-import { serverUrl } from "../../config/config";
 import { useRouter } from "next/navigation";
 import toast from "react-hot-toast";
 import { LogOut, User } from "lucide-react";
+
 export const NavLinks = [
   { name: "Home", links: "/" },
   { name: "Blog", links: "/blog" },
@@ -33,9 +33,7 @@ const Header = () => {
     const fetchUserData = async () => {
       try {
         setLoading(true);
-        const res = await axios.get(`${serverUrl}api/user/me`, {
-          withCredentials: true,
-        });
+        const res = await axios.get("/api/user/me");
         const data = res?.data;
         if (data?.success) {
           setUserData(data?.user);
@@ -56,13 +54,7 @@ const Header = () => {
     } else {
       try {
         setLoading(true);
-        const res = await axios.post(
-          `${serverUrl}api/user/logout`,
-          {},
-          {
-            withCredentials: true,
-          }
-        );
+        const res = await axios.post(`/api/user/logout`, {});
         const data = res?.data;
         if (data?.success) {
           window.location.reload();
