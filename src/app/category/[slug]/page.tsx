@@ -3,10 +3,11 @@ import Container from "@/components/container";
 import { useParams } from "next/navigation";
 import { useEffect, useState } from "react";
 import { PostType } from "../../../../types/postType";
-import axios from "../../../../utils/axiosInstance";
+import axios from "axios";
 import { Badge } from "@/components/ui/badge";
 import PostCard from "@/components/PostCard";
 import { Skeleton } from "@/components/ui/skeleton";
+import { serverUrl } from "../../../../utils/config";
 
 const SingleCategoryPost = () => {
   const params = useParams();
@@ -19,7 +20,9 @@ const SingleCategoryPost = () => {
       const getCategoryByPost = async () => {
         try {
           setLoading(true);
-          const res = await axios.get(`/api/category/post/category/${slug}`);
+          const res = await axios.get(
+            `${serverUrl}/api/category/post/category/${slug}`
+          );
           const data = res?.data;
           if (data?.success) {
             setPost(data?.post);

@@ -13,6 +13,7 @@ import Image from "next/image";
 import dayjs from "dayjs";
 import Link from "next/link";
 import { Skeleton } from "../ui/skeleton";
+import { serverUrl } from "../../../utils/config";
 
 const PostBanner = () => {
   const [postList, setPostList] = useState<PostType[]>([]);
@@ -22,9 +23,9 @@ const PostBanner = () => {
     const getPostList = async () => {
       try {
         setLoading(true);
-        const res = await axios.get(
-          `${process.env.NEXT_PUBLIC_API_URL}/api/post/posts`
-        );
+        const res = await axios.get(`${serverUrl}/api/post/posts`, {
+          withCredentials: true,
+        });
         const data = res?.data;
         setPostList(data?.post);
       } catch (error) {

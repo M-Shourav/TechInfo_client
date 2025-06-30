@@ -1,6 +1,6 @@
 "use client";
 import Container from "@/components/container";
-import axios from "../../../../utils/axiosInstance";
+import axios from "axios";
 import React, { useEffect, useState } from "react";
 import { useParams } from "next/navigation";
 import dayjs from "dayjs";
@@ -13,6 +13,7 @@ import OtherPost from "@/components/banner/OtherPost";
 import Link from "next/link";
 import { Button } from "@/components/ui/button";
 import { ChevronLeft } from "lucide-react";
+import { serverUrl } from "../../../../utils/config";
 
 const SinglePage = () => {
   const params = useParams();
@@ -23,7 +24,9 @@ const SinglePage = () => {
     const singlePost = async () => {
       setLoading(true);
       try {
-        const res = await axios.get(`/api/post/singlePost/${params?.slug}`);
+        const res = await axios.get(
+          `${serverUrl}/api/post/singlePost/${params?.slug}`
+        );
         setPost(res?.data.singlePost);
       } catch (error) {
         console.log("Single Post error:", error);

@@ -1,5 +1,5 @@
 "use client";
-import axios from "../../utils/axiosInstance";
+import axios from "axios";
 import Container from "./container";
 import Link from "next/link";
 import { signOut, useSession } from "next-auth/react";
@@ -17,6 +17,7 @@ import { UserType } from "../../types/userType";
 import { useRouter } from "next/navigation";
 import toast from "react-hot-toast";
 import { LogOut, User } from "lucide-react";
+import { serverUrl } from "../../utils/config";
 
 export const NavLinks = [
   { name: "Home", links: "/" },
@@ -33,7 +34,9 @@ const Header = () => {
     const fetchUserData = async () => {
       try {
         setLoading(true);
-        const res = await axios.get("/api/user/me");
+        const res = await axios.get(`${serverUrl}/api/user/me`, {
+          withCredentials: true,
+        });
         const data = res?.data;
         if (data?.success) {
           setUserData(data?.user);
@@ -54,7 +57,13 @@ const Header = () => {
     } else {
       try {
         setLoading(true);
-        const res = await axios.post(`/api/user/logout`, {});
+        const res = await axios.post(
+          `${serverUrl}/api/user/logout`,
+          {},
+          {
+            withCredentials: true,
+          }
+        );
         const data = res?.data;
         if (data?.success) {
           window.location.reload();

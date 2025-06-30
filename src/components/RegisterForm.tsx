@@ -2,7 +2,7 @@
 import { useState } from "react";
 import { CardContent, CardFooter } from "./ui/card";
 import Link from "next/link";
-import axios from "../../utils/axiosInstance";
+import axios from "axios";
 import { useRouter } from "next/navigation";
 import toast from "react-hot-toast";
 import { Button } from "./ui/button";
@@ -11,6 +11,7 @@ import { Input } from "./ui/input";
 import { CameraOff, Loader2 } from "lucide-react";
 import Image from "next/image";
 import { AiOutlineEye, AiOutlineEyeInvisible } from "react-icons/ai";
+import { serverUrl } from "../../utils/config";
 
 const RegisterForm = () => {
   const [loading, setLoading] = useState(false);
@@ -31,7 +32,7 @@ const RegisterForm = () => {
       if (imageUrl) {
         formData.append("avatar", imageUrl);
       }
-      const res = await axios.post(`/api/user/register`, formData);
+      const res = await axios.post(`${serverUrl}/api/user/register`, formData);
       const data = res.data;
       if (data?.success) {
         toast.success(data?.message);

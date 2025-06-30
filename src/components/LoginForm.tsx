@@ -4,10 +4,11 @@ import { CardContent, CardFooter } from "./ui/card";
 import { AiOutlineEye, AiOutlineEyeInvisible } from "react-icons/ai";
 import { useState } from "react";
 import toast from "react-hot-toast";
-import axios from "../../utils/axiosInstance";
+import axios from "axios";
 import { setCookie } from "cookies-next";
 import { Loader2 } from "lucide-react";
 import { Button } from "./ui/button";
+import { serverUrl } from "../../utils/config";
 
 const LoginForm = () => {
   const [showPassword, setShowPassword] = useState(false);
@@ -19,7 +20,7 @@ const LoginForm = () => {
     e.preventDefault();
     try {
       setLoading(true);
-      const response = await axios.post(`/api/user/login`, {
+      const response = await axios.post(`${serverUrl}/api/user/login`, {
         email,
         password,
       });

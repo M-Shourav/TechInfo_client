@@ -1,13 +1,14 @@
 "use client";
 import React, { useEffect, useState } from "react";
 import Container from "../container";
-import axios from "../../../utils/axiosInstance";
+import axios from "axios";
 import { PostType } from "../../../types/postType";
 import dayjs from "dayjs";
 import Image from "next/image";
 import Link from "next/link";
 import { ChevronRight } from "lucide-react";
 import { Skeleton } from "../ui/skeleton";
+import { serverUrl } from "../../../utils/config";
 
 const PostByAuthor = () => {
   const [post, setPost] = useState<PostType[]>([]);
@@ -16,7 +17,7 @@ const PostByAuthor = () => {
     const getPostList = async () => {
       try {
         setLoading(true);
-        const res = await axios.get(`/api/post/posts`);
+        const res = await axios.get(`${serverUrl}/api/post/posts`);
         const data = res?.data;
         if (data?.success) {
           setPost(data?.post);

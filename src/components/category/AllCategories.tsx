@@ -1,7 +1,7 @@
 "use client";
 import { useEffect, useState } from "react";
 import Container from "../container";
-import axios from "../../../utils/axiosInstance";
+import axios from "axios";
 import { Popover, PopoverContent, PopoverTrigger } from "../ui/popover";
 import { Button } from "../ui/button";
 import { ChevronDown } from "lucide-react";
@@ -15,6 +15,7 @@ import {
 } from "../ui/command";
 import { CategoryType } from "../../../types/postType";
 import { useRouter } from "next/navigation";
+import { serverUrl } from "../../../utils/config";
 
 const AllCategories = () => {
   const [open, setOpen] = useState(false);
@@ -27,7 +28,7 @@ const AllCategories = () => {
     const getAllCategories = async () => {
       try {
         setLoading(true);
-        const res = await axios.get("/api/category/getCategories");
+        const res = await axios.get(`${serverUrl}/api/category/getCategories`);
         const data = res?.data;
         if (data?.success) {
           setCategory(data?.categories);
