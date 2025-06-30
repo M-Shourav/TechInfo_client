@@ -30,26 +30,26 @@ const Header = () => {
   const [userData, setUserData] = useState<UserType | null>(null);
   const [loading, setLoading] = useState(false);
   const router = useRouter();
-  useEffect(() => {
-    const fetchUserData = async () => {
-      try {
-        setLoading(true);
-        const res = await axios.get(`${serverUrl}/api/user/me`, {
-          withCredentials: true,
-        });
-        const data = res?.data;
-        if (data?.success) {
-          setUserData(data?.user);
-          router.refresh();
-        }
-      } catch (error) {
-        console.log("fetching user data error", error);
-      } finally {
-        setLoading(false);
+
+  const fetchUserData = async () => {
+    try {
+      setLoading(true);
+      const res = await axios.get(`${serverUrl}/api/user/me`, {
+        withCredentials: true,
+      });
+      const data = res?.data;
+      if (data?.success) {
+        setUserData(data?.user);
       }
-    };
+    } catch (error) {
+      console.log("fetching user data error", error);
+    } finally {
+      setLoading(false);
+    }
+  };
+  useEffect(() => {
     fetchUserData();
-  }, [router]);
+  }, []);
 
   const handleLogout = async () => {
     if (session?.user) {
@@ -77,6 +77,8 @@ const Header = () => {
     }
   };
   const userImage = session?.user?.image ?? userData?.avatar?.url;
+  console.log(userData);
+
   return (
     <header className="w-full bg-white overflow-hidden h-20 shadow-md">
       <Container className="h-full flex items-center justify-between gap-10">
