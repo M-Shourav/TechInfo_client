@@ -14,7 +14,6 @@ import {
 } from "./ui/dropdown-menu";
 import { useEffect, useState } from "react";
 import { UserType } from "../../types/userType";
-import { useRouter } from "next/navigation";
 import toast from "react-hot-toast";
 import { LogOut, User } from "lucide-react";
 import { serverUrl } from "../../utils/config";
@@ -29,8 +28,6 @@ const Header = () => {
   const { data: session } = useSession();
   const [userData, setUserData] = useState<UserType | null>(null);
   const [loading, setLoading] = useState(false);
-  const router = useRouter();
-
   const fetchUserData = async () => {
     try {
       setLoading(true);
