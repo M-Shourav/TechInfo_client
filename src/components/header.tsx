@@ -28,27 +28,25 @@ const Header = () => {
   const { data: session } = useSession();
   const [userData, setUserData] = useState<UserType | null>(null);
   const [loading, setLoading] = useState(false);
-  const fetchUserData = async () => {
-    try {
-      setLoading(true);
-      const res = await axios.get(`${serverUrl}/api/user/me`, {
-        withCredentials: true,
-      });
-      const data = res?.data;
-      if (data?.success) {
-        setUserData(data?.user);
-      }
-    } catch (error) {
-      console.log("fetching user data error", error);
-    } finally {
-      setLoading(false);
-    }
-  };
   useEffect(() => {
+    const fetchUserData = async () => {
+      try {
+        setLoading(true);
+        const res = await axios.get(`${serverUrl}/api/user/me`, {
+          withCredentials: true,
+        });
+        const data = res?.data;
+        if (data?.success) {
+          setUserData(data?.user);
+        }
+      } catch (error) {
+        console.log("fetching user data error", error);
+      } finally {
+        setLoading(false);
+      }
+    };
     fetchUserData();
   }, []);
-
-  console.log(userData);
 
   const handleLogout = async () => {
     if (session?.user) {
@@ -76,6 +74,7 @@ const Header = () => {
     }
   };
   const userImage = session?.user?.image ?? userData?.avatar?.url;
+
   console.log(userData);
 
   return (
