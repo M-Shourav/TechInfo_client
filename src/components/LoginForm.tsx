@@ -20,10 +20,19 @@ const LoginForm = () => {
     e.preventDefault();
     try {
       setLoading(true);
-      const response = await axios.post(`${serverUrl}/api/user/login`, {
-        email,
-        password,
-      });
+      const response = await axios.post(
+        `${serverUrl}/api/user/login`,
+        {
+          email,
+          password,
+        },
+        {
+          headers: {
+            "Content-Type": "application/json",
+          },
+          withCredentials: true,
+        }
+      );
       const data = response?.data;
       const token = response?.data.token;
       if (data?.success) {
