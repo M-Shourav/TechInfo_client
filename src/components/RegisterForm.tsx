@@ -36,7 +36,7 @@ const RegisterForm = () => {
       const data = res.data;
       if (data?.success) {
         toast.success(data?.message);
-        router.push("/");
+        router.push("/login");
       } else {
         toast.error(data?.message);
       }
