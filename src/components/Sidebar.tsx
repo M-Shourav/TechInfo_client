@@ -1,7 +1,7 @@
 "use client";
 import { Blocks, ChartColumnStacked, Home, LogIn, Menu, X } from "lucide-react";
 import { usePathname } from "next/navigation";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { Button } from "./ui/button";
 import Link from "next/link";
 import { useSession } from "next-auth/react";
@@ -28,7 +28,16 @@ const Sidebar = ({ userData }: Props) => {
 
   const CloseSlider = () => setIsOpen(!open);
   const userImage = session?.user?.image ?? userData?.avatar?.url;
-  console.log(pathName);
+  useEffect(() => {
+    if (open) {
+      document.body.style.overflow = "hidden";
+    } else {
+      document.body.style.overflow = "auto";
+    }
+    return () => {
+      document.body.style.overflow = "auto";
+    };
+  }, [open]);
 
   return (
     <div>
