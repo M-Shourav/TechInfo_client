@@ -24,7 +24,7 @@ export default function Sidebar() {
       <div className="md:hidden fixed top-0 left-0 w-full bg-gray-800 text-white px-4 py-3 z-50 flex justify-between items-center">
         <div className="text-lg font-semibold">MyApp</div>
         <button onClick={() => setOpen(true)}>
-          <Menu size={24} />
+          <Menu size={74} />
         </button>
       </div>
 

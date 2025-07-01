@@ -145,7 +145,7 @@ const Header = () => {
           </div>
         </div>
         <div className="inline-flex lg:hidden">
-          <Sidebar />
+          <Sidebar userData={userData} />
         </div>
       </Container>
     </header>
