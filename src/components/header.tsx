@@ -48,6 +48,8 @@ const Header = () => {
     fetchUserData();
   }, []);
 
+  console.log(userData);
+
   const handleLogout = async () => {
     if (session?.user) {
       signOut();
