@@ -17,11 +17,7 @@ const NavLinks = [
     icon: <ChartColumnStacked size={18} />,
   },
 ];
-//   {
-//     name: "Login",
-//     links: "/login",
-//     icon: <LogIn size={18} />,
-//   },
+
 interface Props {
   userData: UserType | null;
 }
@@ -87,14 +83,17 @@ const Sidebar = ({ userData }: Props) => {
           ))}
           <div className="w-full">
             {userImage ? (
-              <div>
+              <div className="w-full flex items-center space-x-2">
                 <Image
                   src={userImage}
                   alt="user-image"
                   width={50}
                   height={50}
+                  className="w-8 h-8 rounded-full object-cover"
                 />
-                <p>{userData?.name}</p>
+                <p className="text-sm font-semibold">
+                  {session?.user?.name || userData?.name}
+                </p>
               </div>
             ) : (
               <Link
