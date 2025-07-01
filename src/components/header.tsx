@@ -17,6 +17,7 @@ import { UserType } from "../../types/userType";
 import toast from "react-hot-toast";
 import { LogOut, User } from "lucide-react";
 import { serverUrl } from "../../utils/config";
+import Sidebar from "./Sidebar";
 
 export const NavLinks = [
   { name: "Home", links: "/" },
@@ -74,11 +75,8 @@ const Header = () => {
     }
   };
   const userImage = session?.user?.image ?? userData?.avatar?.url;
-
-  console.log(userData);
-
   return (
-    <header className="w-full bg-white overflow-hidden h-20 shadow-md">
+    <header className="w-full bg-white overflow-hidden h-20 sticky top-0 shadow-md z-50">
       <Container className="h-full flex items-center justify-between gap-10">
         <div>
           <Link
@@ -145,6 +143,9 @@ const Header = () => {
               </Link>
             )}
           </div>
+        </div>
+        <div className="inline-flex lg:hidden">
+          <Sidebar />
         </div>
       </Container>
     </header>

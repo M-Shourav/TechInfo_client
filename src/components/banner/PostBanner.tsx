@@ -38,12 +38,12 @@ const PostBanner = () => {
   }, []);
   return (
     <div className="max-w-screen-xl px-8 flex flex-col space-y-5 py-10">
-      <div className="w-full flex flex-col items-center justify-center space-y-2">
+      <div className="w-full flex flex-col sm:items-center sm:justify-center space-y-2">
         <p className="text-xs md:text-base font-semibold">Recent blog</p>
         <h1 className="text-2xl md:text-5xl font-semibold">
           Writing from our team
         </h1>
-        <p className="text-sm text-center">
+        <p className="text-sm sm:text-center">
           The latest industry news, interviews, technologies, and resources.
         </p>
       </div>
