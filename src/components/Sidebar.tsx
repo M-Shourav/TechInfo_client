@@ -1,12 +1,34 @@
 "use client";
-import { Blocks, ChartColumnStacked, Home, LogIn, Menu, X } from "lucide-react";
+import {
+  Blocks,
+  ChartColumnStacked,
+  CircleUser,
+  Home,
+  LogIn,
+  LogOut,
+  Menu,
+  Settings,
+  X,
+} from "lucide-react";
 import { usePathname } from "next/navigation";
 import { useEffect, useState } from "react";
 import { Button } from "./ui/button";
 import Link from "next/link";
-import { useSession } from "next-auth/react";
+import { signOut, useSession } from "next-auth/react";
 import { UserType } from "../../types/userType";
 import Image from "next/image";
+import {
+  DropdownMenu,
+  DropdownMenuContent,
+  DropdownMenuGroup,
+  DropdownMenuItem,
+  DropdownMenuLabel,
+  DropdownMenuSeparator,
+  DropdownMenuTrigger,
+} from "./ui/dropdown-menu";
+import toast from "react-hot-toast";
+import axios from "axios";
+import { serverUrl } from "../../utils/config";
 
 const NavLinks = [
   { name: "Home", links: "/", icon: <Home size={18} /> },
@@ -39,6 +61,31 @@ const Sidebar = ({ userData }: Props) => {
     };
   }, [open]);
 
+  const handleLogout = async () => {
+    if (session?.user) {
+      signOut();
+    } else {
+      try {
+        setIsOpen(true);
+        const res = await axios.post(
+          `${serverUrl}/api/user/logout`,
+          {},
+          {
+            withCredentials: true,
+          }
+        );
+        const data = res?.data;
+        if (data?.success) {
+          window.location.reload();
+          toast.success(data?.message);
+        }
+      } catch (error) {
+        console.log("User logout error", error);
+      } finally {
+        setIsOpen(false);
+      }
+    }
+  };
   return (
     <div>
       <div>
@@ -90,20 +137,73 @@ const Sidebar = ({ userData }: Props) => {
               {link.name}
             </Link>
           ))}
-          <div className="w-full">
+          <>
             {userImage ? (
-              <div className="w-full flex items-center space-x-2">
-                <Image
-                  src={userImage}
-                  alt="user-image"
-                  width={50}
-                  height={50}
-                  className="w-8 h-8 rounded-full object-cover"
-                />
-                <p className="text-sm font-semibold">
-                  {session?.user?.name || userData?.name}
-                </p>
-              </div>
+              <DropdownMenu>
+                <DropdownMenuTrigger
+                  asChild
+                  className="w-full px-4 flex items-center space-x-2"
+                >
+                  <button className="cursor-pointer outline-none">
+                    <Image
+                      src={userImage}
+                      alt="user-image"
+                      width={50}
+                      height={50}
+                      className="w-8 h-8 rounded-full object-cover"
+                    />
+                    <p className="text-sm font-semibold">
+                      {session?.user?.name || userData?.name}
+                    </p>
+                  </button>
+                </DropdownMenuTrigger>
+                <DropdownMenuContent
+                  className="w-68  shadow-none"
+                  align="start"
+                >
+                  <DropdownMenuLabel className="text-muted-foreground">
+                    My Account
+                  </DropdownMenuLabel>
+                  <DropdownMenuGroup>
+                    <DropdownMenuItem asChild>
+                      <Link
+                        href={"/profile"}
+                        onClick={CloseSlider}
+                        className=" cursor-pointer w-full flex items-center justify-between"
+                      >
+                        Profile
+                        <CircleUser />
+                      </Link>
+                    </DropdownMenuItem>
+                    <DropdownMenuItem asChild>
+                      <Link
+                        href={"/setting"}
+                        onClick={CloseSlider}
+                        className=" cursor-pointer w-full flex items-center justify-between"
+                      >
+                        Setting
+                        <Settings />
+                      </Link>
+                    </DropdownMenuItem>
+                  </DropdownMenuGroup>
+                  <DropdownMenuSeparator />
+                  <DropdownMenuGroup>
+                    <DropdownMenuItem
+                      asChild
+                      className="cursor-pointer w-full flex items-center justify-between"
+                    >
+                      <Button
+                        variant="outline"
+                        className="w-full flex border-none cursor-pointer"
+                        onClick={handleLogout}
+                      >
+                        Log out
+                        <LogOut />
+                      </Button>
+                    </DropdownMenuItem>
+                  </DropdownMenuGroup>
+                </DropdownMenuContent>
+              </DropdownMenu>
             ) : (
               <Link
                 href={"/login"}
@@ -116,7 +216,7 @@ const Sidebar = ({ userData }: Props) => {
                 Login
               </Link>
             )}
-          </div>
+          </>
         </nav>
       </aside>
     </div>
