@@ -1,7 +1,12 @@
+import AllBlogPost from "@/components/blog/AllBlogPost";
 import React from "react";
 
 const BlogPage = () => {
-  return <div>BlogPage</div>;
+  return (
+    <>
+      <AllBlogPost />
+    </>
+  );
 };
 
 export default BlogPage;
