@@ -24,7 +24,7 @@ const AllBlogPost = () => {
     const getPostList = async () => {
       try {
         setLoading(true);
-        const res = await axios.get(`${serverUrl}api/post/posts`, {
+        const res = await axios.get(`${serverUrl}/api/post/posts`, {
           withCredentials: true,
         });
         const data = res?.data;
